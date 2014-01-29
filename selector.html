@@ -1,0 +1,68 @@
+<!-- selector.html -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Selectors: D3 Cookbook
+		</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<script type="text/javascript" src="lib/d3.js"></script>
+		<script type="text/javascript">
+		function concats(A, B) {
+			//concatanation with spaces
+			return A + " " + B;
+		}
+		</script>
+	</head>
+	<body>
+		<p id="target"></p>
+		<p id="console">This is the console area.</p>
+		<script type="text/javascript">
+			d3.select("p#target")
+				.text("Hello World!");
+			d3.select("p#console").style("background-color", "blue");
+			d3.select("p#console").style("color", "white");
+			d3.select("p#console").text(concats(d3.select("p#console").text(), d3.select("p#target").style("font-size")));
+		</script>
+	
+	<div></div>
+	<div></div>
+	<div></div>
+
+	<script type="text/javascript">
+    	d3.selectAll("div") // <-- A
+        	.attr("class", "red box"); // <-- B
+	</script>
+
+	<script type="text/javascript">
+		d3.selectAll("div") // <-- A
+            .attr("class", "red box") // <-- B
+            .each(function (d, i) {
+            if (i%2 == 0) {d3.select(this).append("h1").text(i);}
+            	else {d3.select(this).append("h1").text("ODD");}
+            d3.select(this).append("h1").text(i); // <-- D
+         });
+	</script>
+
+	<section id="section1">
+    <div>
+        <p>blue box</p>
+    </div>
+</section>
+<section id="section2">
+    <div>
+        <p>red box</p>
+    </div>
+</section>
+
+<script type="text/javascript">
+    d3.select("#section1 > div") // <-- A
+            .attr("class", "blue box");
+
+    d3.select("#section2") // <-- B
+            .select("div") // <-- C
+            .attr("class", "red box"); 
+</script>
+	</body>
+</html>
