@@ -57,11 +57,11 @@
 </section>
 
 <script type="text/javascript">
-    d3.select("#section1 > div") // <-- A
+    d3.select("#section1 > div") // combinator
             .attr("class", "blue box");
 
     d3.select("#section2") // <-- B
-            .select("div") // <-- C
+            .select("div") // selector selector is a descent combinator
             .attr("class", "red box"); 
 </script>
 	</body>
