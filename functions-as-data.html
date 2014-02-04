@@ -1,0 +1,59 @@
+<<!doctype html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<script type="text/javascript" src="/lib/d3.js"></script>
+</head>
+<body>
+<div id="container"></div>
+
+<script type="text/javascript">
+	var count = 0;
+	var maxcount = 20;
+    var data = []; // <- A
+
+    var next = function (x) { // <- B
+        return 100 * Math.abs(Math.sin(x*0.0174532925*10));
+    };
+    
+   var newData = function () { // <- C        
+        data.push(next);
+        return data;
+    };
+
+   function render(){
+  		count++;
+        var selection = d3.select("#container")
+                  .selectAll("div")
+                   .data(newData); // <- D
+
+        selection.enter().append("div").append("span");
+
+        selection.exit().remove();
+
+        selection.attr("class", "v-bar")
+            .style("height", function (d, i) {
+                return d(i)+"px"; // <- E
+            })
+        .select("span")
+            .text(function(d, i){ 
+              return d(i); } // <- F
+            ); 
+   }
+    
+   var intervalID = setInterval(function () {
+   	if (count < maxcount) {
+   		render();
+   	} else {
+   		clearInterval(intervalID)
+   	}
+       render();
+   }, 500);
+
+   render();
+</script>
+
+</body>
+</html>
